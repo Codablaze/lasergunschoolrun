@@ -91,7 +91,7 @@ public class GameMain : Game
             MoveRight = kb.IsKeyDown(Keys.D),
             MoveBack = kb.IsKeyDown(Keys.S),
             MoveForward = kb.IsKeyDown(Keys.W),
-            IsFiring = ms.LeftButton == ButtonState.Pressed
+            IsFiring = ms.LeftButton == ButtonState.Pressed || kb.IsKeyDown(Keys.Space)
         };
 
         _world.Update(inputContext, gameTime);
