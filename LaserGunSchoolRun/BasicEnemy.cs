@@ -2,14 +2,21 @@
 
 namespace LaserGunSchoolRun;
 
-public class Projectile
+public class BasicEnemy
 {
     public Vector2 Position;
-    public Vector2 Direction = -Vector2.UnitY; // always up
+    public Vector2 Direction;
+    public float Health = 1f; // [0-1]
 
-    public const float Speed = 950f;
-    public const float Damage = .36f;
+    public static float NextSpeed = 50f;
+    public float Speed;
+
     public static int Width, Height;
+
+    public void Update(float dt)
+    {
+        Position += Direction * Speed * dt;
+    }
 
     public Rectangle GetBounds()
     {
@@ -17,10 +24,5 @@ public class Projectile
             (int)Position.X - Width / 2,
             (int)Position.Y - Height / 2,
             Width, Height);
-    }
-
-    public void Update(float dt)
-    {
-        Position += Direction * Speed * dt;
     }
 }

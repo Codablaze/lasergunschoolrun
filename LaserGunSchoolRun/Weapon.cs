@@ -7,7 +7,7 @@ namespace LaserGunSchoolRun;
 public class Weapon
 {
     private readonly List<Projectile> _projectiles;
-    private readonly TimeSpan Cooldown = TimeSpan.FromMilliseconds(200); // can fire every 200ms
+    private readonly TimeSpan Cooldown = TimeSpan.FromMilliseconds(160); // can fire every 200ms
     private TimeSpan CurrentCooldown = TimeSpan.Zero;
     private readonly Player _player;
 

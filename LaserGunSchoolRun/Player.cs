@@ -10,9 +10,10 @@ public class Player
 
     private const float MoveAmount = 400f;
 
-    public void Update(InputContext context, float dt)
+    public void Update(InputContext input, float dt)
     {
-        UpdatePosition(context, dt);
+        UpdatePosition(input, dt);
+        ClampPosition();
     }
 
     private void UpdatePosition(InputContext context, float dt)
@@ -26,7 +27,10 @@ public class Player
             Position.Y -= MoveAmount * dt;
         if (context.MoveBack)
             Position.Y += MoveAmount * dt;
+    }
 
+    private void ClampPosition()
+    {
         var halfWidth = Width / 2;
         var halfHeight = Height / 2;
 
