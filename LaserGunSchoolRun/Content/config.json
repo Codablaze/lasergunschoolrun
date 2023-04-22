@@ -1,0 +1,7 @@
+{
+  "MovingLeft": [ "A", "Left" ],
+  "MovingRight": [ "D", "Right" ],
+  "MovingForward": [ "W", "Up" ],
+  "MovingBack": [ "S", "Down" ],
+  "IsFiring": [ "Mouse_Left", "Space" ]
+}

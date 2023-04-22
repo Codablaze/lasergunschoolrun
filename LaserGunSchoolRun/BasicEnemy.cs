@@ -2,27 +2,28 @@
 
 namespace LaserGunSchoolRun;
 
+public enum BasicEnemyType
+{
+    Car,
+    FastCar
+}
+
 public class BasicEnemy
 {
+    private readonly float _speed;
+
+    public BasicEnemyType Type;
     public Vector2 Position;
-    public Vector2 Direction;
-    public float Health = 1f; // [0-1]
+    public Vector2 Direction = new (0, 1);
 
-    public static float NextSpeed = 50f;
-    public float Speed;
-
-    public static int Width, Height;
+    public BasicEnemy(BasicEnemyType type, float speed)
+    {
+        Type = type;
+        _speed = speed;
+    }
 
     public void Update(float dt)
     {
-        Position += Direction * Speed * dt;
-    }
-
-    public Rectangle GetBounds()
-    {
-        return new Rectangle(
-            (int)Position.X - Width / 2,
-            (int)Position.Y - Height / 2,
-            Width, Height);
+        Position += Direction * _speed * dt;
     }
 }

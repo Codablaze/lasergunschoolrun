@@ -1,3 +1,2 @@
-﻿
-using var game = new LaserGunSchoolRun.GameMain();
+﻿using var game = new LaserGunSchoolRun.GameMain();
 game.Run();
