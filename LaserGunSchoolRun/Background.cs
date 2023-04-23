@@ -12,6 +12,9 @@ public class Background
     private float _offset;
     private float _offset2;
 
+    // removing the two draw calls wraps the texture on the background automatically, this
+    // is not good when the background changes thoughout the level
+
     public Background(SpriteBatch spriteBatch, Rectangle viewport)
     {
         _spriteBatch = spriteBatch;
@@ -30,18 +33,20 @@ public class Background
         _offset += Constants.BackgroundScrollSpeed * dt;
         _offset2 += Constants.BackgroundScrollSpeed * dt;
 
-        if (_offset > _viewport.Height)
-            _offset = 0;
-        if (_offset2 > 0)
-            _offset2 = -_viewport.Height;
+        //if (_offset > _viewport.Height)
+        //    _offset = 0;
+        //if (_offset2 > 0)
+        //    _offset2 = -_viewport.Height;
     }
 
     public void Draw()
     {
         _spriteBatch.Begin(samplerState: SamplerState.LinearWrap, transformMatrix: Matrix.Identity);
 
-        _spriteBatch.Draw(_road, new Vector2(0, _offset), _viewport, Color.White);
-        _spriteBatch.Draw(_road, new Vector2(0, _offset2), _viewport, Color.White);
+        _spriteBatch.Draw(_road, _viewport, new Rectangle(0, (int)_offset, _viewport.Width, _viewport.Height), Color.White);
+
+        //_spriteBatch.Draw(_road, new Vector2(0, _offset), _viewport, Color.White);
+        //_spriteBatch.Draw(_road, new Vector2(0, _offset2), _viewport, Color.White);
 
         _spriteBatch.End();
     }

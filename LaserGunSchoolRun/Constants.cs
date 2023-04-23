@@ -15,4 +15,11 @@ public static class Constants
     public const double InitialBasicEnemyCreationDelaySeconds = 1.8;
     public const double FastCarChance = 0.10; // 10%
     public const int LaneCount = 10;
+    public const int BasicRoadUserHealth = 100;
+    public const int LaserSpeed = 1250;
+    public const int LaserDamage = 35;
+    public const int DefaultPlayerHealth = 100;
+    public const int NormalRoadUserDamageToPlayer = 9;
+    public const int FastRoadUserDamageToPlayer = 18;
+
 }

@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace LaserGunSchoolRun;
 
-public class BasicRoadUserManager : IEnumerable<BasicEnemy>
+public class BasicRoadUserManager : IEnumerable<BasicRoadUser>
 {
-    private readonly List<BasicEnemy> _enemies = new();
+    private readonly List<BasicRoadUser> _enemies = new();
     private TimeSpan creationTimer = TimeSpan.FromSeconds(Constants.InitialBasicEnemyCreationDelaySeconds);
     private TimeSpan currentTime;
     private readonly Random _rng = new(Constants.RandomSeed); // providing seed as want game to be same each time
@@ -23,7 +23,7 @@ public class BasicRoadUserManager : IEnumerable<BasicEnemy>
         _textureHeight = textureHeight;
     }
 
-    private readonly List<BasicEnemy> toRemove = new();
+    private readonly List<BasicRoadUser> toRemove = new();
 
     public void Update(GameTime gameTime, float dt)
     {
@@ -34,7 +34,7 @@ public class BasicRoadUserManager : IEnumerable<BasicEnemy>
         {
             item.Update(dt);
 
-            if (item.Position.Y - _textureHeight/2 > _viewport.Height)
+            if (item.Position.Y - _textureHeight / 2 > _viewport.Height)
                 toRemove.Add(item);
         }
 
@@ -58,22 +58,28 @@ public class BasicRoadUserManager : IEnumerable<BasicEnemy>
         var nextLane = _rng.Next(Constants.LaneCount);
         var nextLaneCenter = laneWidth * nextLane + _textureWidth;
 
-        var nextType = BasicEnemyType.Car;
+        var nextType = BasicRoadUserType.Car;
         if (_rng.NextDouble() > 1.0 - Constants.FastCarChance) // 10% chance of being sports car
-            nextType = BasicEnemyType.FastCar;
+            nextType = BasicRoadUserType.FastCar;
 
-        var nextSpeed = nextType == BasicEnemyType.Car ? Constants.StandardCarSpeed : Constants.FastCarSpeed;
+        var nextSpeed = nextType == BasicRoadUserType.Car ? Constants.StandardCarSpeed : Constants.FastCarSpeed;
 
-        _enemies.Add(new BasicEnemy(nextType, nextSpeed)
+        _enemies.Add(new BasicRoadUser(nextType, nextSpeed, _textureWidth, _textureHeight,
+            nextType == BasicRoadUserType.Car ? Constants.NormalRoadUserDamageToPlayer : Constants.FastRoadUserDamageToPlayer)
         {
             Position = new Vector2(nextLaneCenter, StartOffset)
         });
     }
 
-    public IEnumerator<BasicEnemy> GetEnumerator()
+    public IEnumerator<BasicRoadUser> GetEnumerator()
     {
         return _enemies.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    public void Remove(BasicRoadUser item)
+    {
+        _enemies.Remove(item);
+    }
 }

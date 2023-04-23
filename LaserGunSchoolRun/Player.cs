@@ -6,17 +6,24 @@ public class Player
 {
     public Vector2 Position;
     public Vector2 Velocity;
+    public int Health = Constants.DefaultPlayerHealth;
 
     private readonly Rectangle Bounds;
+    private readonly int _textureWidth;
+    private readonly int _textureHeight;
     private readonly int halfWidth;
     private readonly int halfHeight;
 
     public Player(Rectangle viewport, int textureWidth, int textureHeight)
     {
         Bounds = viewport;
+        _textureWidth = textureWidth;
+        _textureHeight = textureHeight;
         halfWidth = textureWidth / 2;
         halfHeight = textureHeight / 2;
     }
+
+    public BoundingBox2 GetBounds() => new(Position, _textureWidth, _textureHeight);
 
     public void Update(InputContext input, float dt)
     {
